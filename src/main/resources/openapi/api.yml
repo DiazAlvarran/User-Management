@@ -1,0 +1,85 @@
+openapi: '3.0.1'
+
+info:
+  title: User
+  version: '1.0'
+  description: User Management
+  
+servers:
+  - url: http://localhost:8081/api
+    description: Local server
+    
+paths:
+  /user:
+    post:
+      summary: Save User
+      operationId: saveUser
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              
+components:
+  schemas:
+    UserRequest:
+      type: object
+      description: Data element for user
+      required:
+        - name
+        - email
+        - password
+        - phones
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          $ref: '#/components/schemas/PhoneRequest'
+    PhoneRequest:
+      type: object
+      description: Data element for phone
+      required:
+        - number
+        - cityCode
+        - countryCode
+      properties:
+        number:
+          type: String
+        cityCode:
+          type: String
+        countryCode:
+          type: String
+    UserResponse:
+      type: object
+      description: Data for user response
+      required:
+        - id
+        - created
+        - modified
+        - lastLogin
+        - token
+        - isActive
+      properties:
+        id:
+          type: String
+        created:
+          type: String
+        modified:
+          type: String
+        lastLogin:
+          type: String
+        token:
+          type: String
+        isActive:
+          type: String
