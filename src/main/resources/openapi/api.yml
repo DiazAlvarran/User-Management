@@ -26,6 +26,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
+        409:
+          description: Conflict for data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
               
 components:
   schemas:
@@ -42,10 +54,18 @@ components:
           type: string
         email:
           type: string
+          pattern: ^[a-zA-Z0-9]+[\w\-\.]*@[a-zA-Z0-9]+[\w\-]*[\.]cl$
+          example: 'aaaaaaa@dominio.cl, jorge.diaz@nisum.cl, jorge_diaz1234@nisum.cl'
+          description: Email con el formato <username>@<dominio>.cl
         password:
           type: string
-        phone:
-          $ref: '#/components/schemas/PhoneRequest'
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.\-\_])[A-Za-z\d@$!%?&\.\-\_]{8,20}$
+          example: 'Jorge1234.'
+          description: Al menos una letra mayúscula, una letra minúscula, un número, un carácter especial (@, $, !, %, ?, &, ., -, _), mínimo ocho y máximo 20 caracteres
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneRequest'
     PhoneRequest:
       type: object
       description: Data element for phone
@@ -82,4 +102,10 @@ components:
         token:
           type: String
         isActive:
-          type: String
+          type: boolean
+    ErrorResponse:
+      type: object
+      description: Data for error response
+      properties:
+        message:
+          type: string

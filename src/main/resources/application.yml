@@ -1,6 +1,11 @@
 server:
   port: 8081
 
+application:
+  regex:
+    email: '^[a-zA-Z0-9]+[\w\-\.]*@[a-zA-Z0-9]+[\w\-]*[\.]cl$'
+    password: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.\-\_])[A-Za-z\d@$!%?&\.\-\_]{8,20}$'
+
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
