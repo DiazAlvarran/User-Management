@@ -5,6 +5,6 @@ import com.nisum.users.dto.UserResponse;
 
 public interface UserService {
   
-  UserResponse saveUser(UserRequest userRequest);
+  UserResponse saveUser(String Authorization, UserRequest userRequest);
 
 }

@@ -33,13 +33,16 @@ public class User {
   @Id
   private String id;
   
+  @Column(nullable = false)
   private String name;
   
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
   private String email;
   
+  @Column(length = 20, nullable = false)
   private String password;
-  
+
+  @Column(nullable = false)
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date created;
@@ -48,14 +51,15 @@ public class User {
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date modified;
   
-  @Column(name = "last_login")
+  @Column(name = "last_login", nullable = false)
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date lastLogin;
   
+  @Column(nullable = false)
   private String token;
   
-  @Column(name = "is_active")
+  @Column(name = "is_active", nullable = false)
   private Boolean isActive;
   
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

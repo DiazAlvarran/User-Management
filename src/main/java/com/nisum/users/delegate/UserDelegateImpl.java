@@ -17,10 +17,10 @@ public class UserDelegateImpl implements UserApiDelegate {
   public UserDelegateImpl(UserService userService) {
     this.userService = userService;
   }
-  
+
   @Override
-  public ResponseEntity<UserResponse> saveUser(UserRequest userRequest) {
-    return new ResponseEntity<UserResponse>(userService.saveUser(userRequest), HttpStatus.CREATED);
+  public ResponseEntity<UserResponse> saveUser(String authorization, UserRequest userRequest) {
+    return new ResponseEntity<UserResponse>(userService.saveUser(authorization, userRequest), HttpStatus.CREATED);
   }
   
 }

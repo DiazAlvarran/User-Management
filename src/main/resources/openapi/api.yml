@@ -14,6 +14,14 @@ paths:
     post:
       summary: Save User
       operationId: saveUser
+      parameters:
+      - name: Authorization
+        in: header
+        description: Token de Autorizacion
+        required: true
+        schema:
+          type: string
+          example: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwY2UzZWY4MC03ZWM3LTQ1MmMtODdmZC0yODhhYTdkM2NhZjIiLCJyb2xlIjoiVVNFUiIsImV4cCI6MTY5OTc0MjYwMCwiaWF0IjoxNjk5NzQyMzAwfQ.cNNUtjaK7WVJouMp7jIkaJOwBlmlW5z60-UW48zLcSrb1PGJ-2lxRrd-niJikD8tHB93FR6FDH8sZYnk7cOiog
       requestBody: 
         content:
           application/json:
@@ -38,6 +46,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /auth:
+    post:
+      summary: User authentication
+      operationId: authenticate
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
               
 components:
   schemas:
@@ -108,4 +132,19 @@ components:
       description: Data for error response
       properties:
         message:
+          type: string
+    AuthRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    JwtResponse:
+      type: object
+      properties:
+        jwt:
           type: string

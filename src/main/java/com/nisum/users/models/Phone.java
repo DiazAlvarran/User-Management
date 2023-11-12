@@ -28,14 +28,16 @@ public class Phone {
   @Id
   private String id;
   
+  @Column(nullable = false)
   private String number;
   
-  @Column(name = "city_code")
+  @Column(name = "city_code", nullable = false)
   private String cityCode;
   
-  @Column(name = "country_code")
+  @Column(name = "country_code", nullable = false)
   private String countryCode;
   
+  @Column(nullable = false)
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date created;

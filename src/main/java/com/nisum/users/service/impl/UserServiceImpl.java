@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
   
   @Override
   @Transactional
-  public UserResponse saveUser(UserRequest userRequest) {
+  public UserResponse saveUser(String authorization, UserRequest userRequest) {
     if (Utils.isInvalidString(properties.getEmailRegex(), userRequest.getEmail())) {
       throw new DataValidationException(Constants.INVALID_EMAIL_MESSAGE, HttpStatus.BAD_REQUEST);
     }
@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService {
     if (userRepository.findUserByEmail(userRequest.getEmail()).isPresent()) {
       throw new DataValidationException(Constants.EMAIL_CONFLICT_MESSAGE, HttpStatus.CONFLICT);
     }
-    return mapUserToUserResponse(userRepository.save(mapUserRequestToUser(userRequest)));
+    return mapUserToUserResponse(userRepository.save(mapUserRequestToUser(authorization, userRequest)));
   }
   
-  private User mapUserRequestToUser(UserRequest userRequest) {
+  private User mapUserRequestToUser(String authorization, UserRequest userRequest) {
     Date now = new Date();
     return User.builder()
         .id(Utils.getNewUuid())
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         .password(userRequest.getPassword())
         .created(now)
         .lastLogin(now)
-        .token("token")
+        .token(authorization)
         .isActive(Boolean.TRUE)
         .phones(userRequest.getPhones().stream()
             .map(phoneRequest -> Phone.builder()
@@ -67,14 +67,14 @@ public class UserServiceImpl implements UserService {
   }
   
   private UserResponse mapUserToUserResponse(User user) {
-    UserResponse userResponse = new UserResponse();
-    userResponse.setId(user.getId());
-    userResponse.setCreated(Utils.convertDateToFormattedString(user.getCreated(), Constants.FORMAT_YYYY_MM_DD));
-    userResponse.setModified(Utils.convertDateToFormattedString(user.getModified(), Constants.FORMAT_YYYY_MM_DD));
-    userResponse.setLastLogin(Utils.convertDateToFormattedString(user.getLastLogin(), Constants.FORMAT_YYYY_MM_DD));
-    userResponse.setToken(user.getToken());
-    userResponse.setIsActive(user.getIsActive());
-    return userResponse;
+    return UserResponse.builder()
+    .id(user.getId())
+    .created(Utils.convertDateToFormattedString(user.getCreated(), Constants.FORMAT_YYYY_MM_DD))
+    .modified(Utils.convertDateToFormattedString(user.getModified(), Constants.FORMAT_YYYY_MM_DD))
+    .lastLogin(Utils.convertDateToFormattedString(user.getLastLogin(), Constants.FORMAT_YYYY_MM_DD))
+    .token(user.getToken())
+    .isActive(user.getIsActive())
+    .build();
   }
   
 }

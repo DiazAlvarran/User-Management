@@ -10,6 +10,20 @@ public class Constants {
   
   public static final String EMAIL_CONFLICT_MESSAGE = "El correo ya registrado.";
   public static final String INVALID_EMAIL_MESSAGE = "El email no tiene el formato correcto: <username>@<dominio>.cl";
-  public static final String INVALID_PASSWORD_MESSAGE = "El password no tiene el formato correcto: Al menos una letra mayúscula, una letra minúscula, un número, un carácter especial (@, $, !, %, ?, &, ., -, _), mínimo ocho y máximo 20 caracteres";
+  public static final String INVALID_PASSWORD_MESSAGE = "El password no tiene el formato correcto: Al menos una letra mayuscula, una letra minuscula, un numero, un caracter especial (@, $, !, %, ?, &, ., -, _), minimo ocho y maximo 20 caracteres";
+  public static final String INVALID_AUTHENTICATION_MESSAGE = "Autenticacion invalida.";
+  public static final String FORBIDDEN_MESSAGE = "Acceso no permitido";
+  
+  public static final String PREFIX_ROLE_AUTHORITY = "ROLE_";
+  public static final String PREFIX_BEARER = "Bearer ";
+  public static final String JWT_CLAIM_ROLE = "role";
+  public static final String ROLE_USER = "USER";
+  
+  public static final String HEADER_AUTHORIZATION = "Authorization";
+  
+  public static final Integer INTERGER_SEVEN = 7;
+  
+  public static final String AUTH_URI = "/api/auth";
+  public static final String H2_CONSOLE = "/h2-console/**";
   
 }

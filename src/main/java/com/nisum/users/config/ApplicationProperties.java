@@ -20,4 +20,12 @@ public class ApplicationProperties {
   @Value("${application.regex.password}")
   private String passwordRegex;
   
+  @NotNull
+  @Value("${application.jwt.secret}")
+  private String secretJwt;
+  
+  @NotNull
+  @Value("${application.jwt.expire}")
+  private long expireJwt;
+  
 }
