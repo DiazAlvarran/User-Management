@@ -24,6 +24,8 @@ public class Constants {
   public static final Integer INTERGER_SEVEN = 7;
   
   public static final String AUTH_URI = "/api/auth";
-  public static final String H2_CONSOLE = "/h2-console/**";
+  public static final String H2_CONSOLE_URI = "/h2-console/**";
+  public static final String SWAGGER_UI_URI = "/swagger-ui/**";
+  public static final String V3_URI = "/v3/**";
   
 }

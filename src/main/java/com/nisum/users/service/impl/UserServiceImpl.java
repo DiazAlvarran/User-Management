@@ -76,5 +76,12 @@ public class UserServiceImpl implements UserService {
     .isActive(user.getIsActive())
     .build();
   }
+
+  @Override
+  public User updateUserSession(User user, String token) {
+    user.setLastLogin(new Date());
+    user.setToken(Constants.PREFIX_BEARER.concat(token));
+    return userRepository.save(user);
+  }
   
 }

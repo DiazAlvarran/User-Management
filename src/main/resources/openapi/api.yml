@@ -76,16 +76,18 @@ components:
       properties:
         name:
           type: string
+          example: 'Juan Rodriguez'
+          description: 'Nombres completos'
         email:
           type: string
           pattern: ^[a-zA-Z0-9]+[\w\-\.]*@[a-zA-Z0-9]+[\w\-]*[\.]cl$
-          example: 'aaaaaaa@dominio.cl, jorge.diaz@nisum.cl, jorge_diaz1234@nisum.cl'
-          description: Email con el formato <username>@<dominio>.cl
+          example: 'juanrodriguez1234@nisum.cl'
+          description: 'Email con el formato <username>@<dominio>.cl'
         password:
           type: string
           pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.\-\_])[A-Za-z\d@$!%?&\.\-\_]{8,20}$
-          example: 'Jorge1234.'
-          description: Al menos una letra mayúscula, una letra minúscula, un número, un carácter especial (@, $, !, %, ?, &, ., -, _), mínimo ocho y máximo 20 caracteres
+          example: 'Juan1234.'
+          description: 'Al menos una letra mayúscula, una letra minúscula, un número, un carácter especial (@, $, !, %, ?, &, ., -, _), mínimo ocho y máximo 20 caracteres'
         phones:
           type: array
           items:
@@ -100,10 +102,16 @@ components:
       properties:
         number:
           type: String
+          example: '123456789'
+          description: 'Número de celular o teléfono'
         cityCode:
           type: String
+          example: '1'
+          description: 'Código telefónico de ciudad'
         countryCode:
           type: String
+          example: '57'
+          description: 'Código telefónico de país'
     UserResponse:
       type: object
       description: Data for user response
@@ -117,22 +125,36 @@ components:
       properties:
         id:
           type: String
+          example: '97d9d06c-ec45-4c46-8cb3-a9b2620a59e9'
+          description: 'Id de usuario (UUID)'
         created:
           type: String
+          example: '2023-11-10'
+          description: 'Fecha de creación de usuario'
         modified:
           type: String
+          example: '2023-11-10'
+          description: 'Fecha de modificación de usuario'
         lastLogin:
           type: String
+          example: '2023-11-10'
+          description: 'Fecha de última sesión'
         token:
           type: String
+          example: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNYXJ0aW4gR2FyY2lhIiwicm9sZSI6IlVTRVIiLCJleHAiOjE2OTk3NDk5ODIsImlhdCI6MTY5OTc0OTY4Mn0.BGxLR3cddrLAJ0g5eyHANGIPeNs573eEvI0rbyXxFXoSclieDcxNTgVkrvUdcEmqr7l1WUaLUTYVSI3h9vUNBg'
+          description: 'Último token de creación o sesión'
         isActive:
           type: boolean
+          example: true
+          description: 'Estado de actividad'
     ErrorResponse:
       type: object
       description: Data for error response
       properties:
         message:
           type: string
+          example: 'Error'
+          description: 'Mensaje de error'
     AuthRequest:
       type: object
       required:
@@ -141,10 +163,16 @@ components:
       properties:
         email:
           type: string
+          example: 'martingarcia@espn.cl'
+          description: 'Email de usuario'
         password:
           type: string
+          example: 'martinG_1234'
+          description: 'Password de usuario'
     JwtResponse:
       type: object
       properties:
         jwt:
           type: string
+          example: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNYXJ0aW4gR2FyY2lhIiwicm9sZSI6IlVTRVIiLCJleHAiOjE2OTk3NDk5ODIsImlhdCI6MTY5OTc0OTY4Mn0.BGxLR3cddrLAJ0g5eyHANGIPeNs573eEvI0rbyXxFXoSclieDcxNTgVkrvUdcEmqr7l1WUaLUTYVSI3h9vUNBg'
+          description: 'JWT generado'
