@@ -26,6 +26,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Implement authorization filter
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -33,19 +39,33 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   
   private final MvcRequestMatcher.Builder mvc;
   
+  /**
+   * constructor with all arguments of the JwtRequestFilter class
+   * 
+   * @param jwtTokenService implements jwt token generation and validation
+   * @param mvc to be used in request rules
+   */
   public JwtRequestFilter(JwtTokenService jwtTokenService, MvcRequestMatcher.Builder mvc) {
     this.jwtTokenService = jwtTokenService;
     this.mvc = mvc;
   }
   
+  /**
+   * configure rules for requests
+   * 
+   * @param request contains request data
+   * @param response contains response data
+   * @param filterChain apply the filter we implemented
+   * @throws ServletException, IOException
+   */
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     try {
-      final String token = request.getHeader(Constants.HEADER_AUTHORIZATION);
+      String token = request.getHeader(Constants.HEADER_AUTHORIZATION);
 
       if (token != null && token.startsWith(Constants.PREFIX_BEARER)) {
-        String tokenWithoutBearer = token.substring(Constants.INTERGER_SEVEN);
+        String tokenWithoutBearer = token.replace(Constants.PREFIX_BEARER, Constants.EMPTY_SPACE);
         Authentication authentication = jwtTokenService.getAuthentication(tokenWithoutBearer);
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
@@ -56,7 +76,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
           .build();
       
       response.setStatus(HttpStatus.FORBIDDEN.value());
-      response.setContentType("application/json");
+      response.setContentType(Constants.CONTENT_TYPE_APPLICATION_JSON);
       response.getWriter().write(new ObjectMapper().writeValueAsString(error));
       response.flushBuffer();
       
@@ -65,6 +85,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
   
+  /**
+   * configure rules for requests
+   * 
+   * @param http allows us to create the rules that we want to apply to the requests
+   * @return SecurityFilterChain contains the security rules created
+   * @throws Exception
+   */
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http.addFilterBefore(this, UsernamePasswordAuthenticationFilter.class);

@@ -7,6 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Class that contains properties useful for the application
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 @Getter
 @Setter
 @Component

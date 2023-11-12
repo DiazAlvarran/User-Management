@@ -1,7 +1,17 @@
 package com.nisum.users.util;
 
+/**
+ * Contains application constants
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 public class Constants {
 
+  /**
+   * empty constructor
+   * 
+   */
   private Constants() {
     
   }
@@ -20,8 +30,9 @@ public class Constants {
   public static final String ROLE_USER = "USER";
   
   public static final String HEADER_AUTHORIZATION = "Authorization";
+  public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
   
-  public static final Integer INTERGER_SEVEN = 7;
+  public static final String EMPTY_SPACE = "";
   
   public static final String AUTH_URI = "/api/auth";
   public static final String H2_CONSOLE_URI = "/h2-console/**";

@@ -12,6 +12,12 @@ import com.nisum.users.service.AuthService;
 import com.nisum.users.service.JwtTokenService;
 import com.nisum.users.service.UserService;
 
+/**
+ * Class that implements AuthApiDelegate for authentication
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 @Service
 public class AuthDelegateImpl implements AuthApiDelegate {
 
@@ -19,12 +25,25 @@ public class AuthDelegateImpl implements AuthApiDelegate {
   private JwtTokenService jwtTokenService;
   private UserService userService;
   
+  /**
+   * constructor with all arguments of the AuthDelegateImpl class
+   * 
+   * @param authService implements user authentication
+   * @param jwtTokenService implements jwt token generation and validation
+   * @param userService implements user management
+   */
   public AuthDelegateImpl(AuthService authService, JwtTokenService jwtTokenService, UserService userService) {
     this.authService = authService;
     this.jwtTokenService = jwtTokenService;
     this.userService = userService;
   }
 
+  /**
+   * implements user authentication
+   * 
+   * @param authRequest contains user credentials
+   * @return ResponseEntity<JwtResponse> JWT generated in session
+   */
   @Override
   public ResponseEntity<JwtResponse> authenticate(AuthRequest authRequest) {
     User user = authService.getUser(authRequest);

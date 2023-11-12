@@ -21,15 +21,32 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * Implement JwtTokenService methods
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 @Service
 public class JwtTokenServiceImpl implements JwtTokenService {
 
   private ApplicationProperties properties;
   
+  /**
+   * constructor with all arguments of the JwtTokenServiceImpl class
+   * 
+   * @param properties contains properties useful for this class
+   */
   public JwtTokenServiceImpl(ApplicationProperties properties) {
     this.properties = properties;
   }
   
+  /**
+   * generates a new token from a user
+   * 
+   * @param user authenticated user
+   * @return String JWT
+   */
   @Override
   public String generateToken(User user) {
     Map<String, Object> claims = new HashMap<>();
@@ -37,13 +54,19 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     return Jwts.builder()
         .setClaims(claims)
-        .setSubject(user.getName())
+        .setSubject(user.getEmail())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + properties.getExpireJwt()))
         .signWith(SignatureAlgorithm.HS512, properties.getSecretJwt())
         .compact();
   }
 
+  /**
+   * validate the user JWT
+   * 
+   * @param token JWT
+   * @return Authentication user authentication
+   */
   @Override
   public Authentication getAuthentication(String token) {
     Claims claims = Jwts.parser()
@@ -51,12 +74,12 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         .parseClaimsJws(token)
         .getBody();
 
-    String userId = claims.getSubject();
+    String email = claims.getSubject();
     String role = claims.get(Constants.JWT_CLAIM_ROLE, String.class);
 
     Collection<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority(Constants.PREFIX_ROLE_AUTHORITY.concat(role)));
-    return new UsernamePasswordAuthenticationToken(userId, null, authorities);
+    return new UsernamePasswordAuthenticationToken(email, null, authorities);
   }
 
 }

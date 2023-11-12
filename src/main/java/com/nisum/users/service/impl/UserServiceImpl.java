@@ -17,17 +17,36 @@ import com.nisum.users.service.repository.UserRepository;
 import com.nisum.users.util.Constants;
 import com.nisum.users.util.Utils;
 
+/**
+ * Implement UserService methods
+ * 
+ * @author Jorge Diaz
+ * @version 1.0
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
   private UserRepository userRepository;
   private ApplicationProperties properties;
   
+  /**
+   * constructor with all arguments of the JwtTokenServiceImpl class
+   * 
+   * @param userRepository for interaction with DB
+   * @param properties contains properties useful for this class
+   */
   public UserServiceImpl(UserRepository userRepository, ApplicationProperties properties) {
     this.userRepository = userRepository;
     this.properties = properties;
   }
   
+  /**
+   * save a new user
+   * 
+   * @param authorization JWT (Bearer eyJhbGciOiJIUzJ9.eyJzdIiwicm9s.01eHo-zZhRn_xOp)
+   * @param userRequest contains the fields necessary to create a user
+   * @return UserResponse response with data from the created user
+   */
   @Override
   @Transactional
   public UserResponse saveUser(String authorization, UserRequest userRequest) {
@@ -43,6 +62,13 @@ public class UserServiceImpl implements UserService {
     return mapUserToUserResponse(userRepository.save(mapUserRequestToUser(authorization, userRequest)));
   }
   
+  /**
+   * converts a UserRequest object to a User object
+   * 
+   * @param authorization JWT (Bearer eyJhbGciOiJIUzJ9.eyJzdIiwicm9s.01eHo-zZhRn_xOp)
+   * @param userRequest contains the fields necessary to create a user
+   * @return User user to be created
+   */
   private User mapUserRequestToUser(String authorization, UserRequest userRequest) {
     Date now = new Date();
     return User.builder()
@@ -66,6 +92,12 @@ public class UserServiceImpl implements UserService {
         .build();
   }
   
+  /**
+   * converts a User object to a UserResponse object
+   * 
+   * @param user created user
+   * @return UserResponse response with data from the created user
+   */
   private UserResponse mapUserToUserResponse(User user) {
     return UserResponse.builder()
     .id(user.getId())
@@ -77,7 +109,15 @@ public class UserServiceImpl implements UserService {
     .build();
   }
 
+  /**
+   * update user when generating a session
+   * 
+   * @param user user to be updated
+   * @param token JWT
+   * @return User updated user
+   */
   @Override
+  @Transactional
   public User updateUserSession(User user, String token) {
     user.setLastLogin(new Date());
     user.setToken(Constants.PREFIX_BEARER.concat(token));

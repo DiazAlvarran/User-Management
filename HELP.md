@@ -3,11 +3,46 @@
 
 Este proyecto es una API RESTful para la creación de usuarios utilizando autorización con JWT.
 
+Se trata de un servicio que expone dos endpoints: `/api/auth` y `/api/user`.
+
+Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, Lombok, OpenApi (Contract First) y Jacoco, 
+
+## Pre-Requisitos
+ 1. Java 17
+ 2. Plugin Lombok (en su IDE Intellij IDEA o STS)
+ 3. Maven
+
+## Ejecutar servicio API RESTful de manera local
+
+ 1. Clonar el repositorio de manera local.
+
+ 1. Ejecutar un `clean` e `install` con maven, ya se por comandos o desde un IDE. Esto permitirá que se generen las clases del contrato con  OpenApi.
+ 
+ Por comandos sería:
+ 
+```
+mvn clean install
+```
+
+ 2. Inicializar el servicio, esto varía según el IDE a utilizar. Por comandos de maven sería:
+ 
+```
+mvn spring-boot:run
+```
+
+**Nota: El servicio está configurado para inicializar en el puerto 8081. Para validar que está ejecutándose, se puede pegar la siguiente url en el navegador `http://localhost:8081/swagger-ui/index.html` para que se muestre el contrato de la API RESTful**
+
 ## Ejecución de Pruebas
+
+### Postman
+
+Se ha creado un `collection` y un `environment` en postman para facilitar las pruebas. Dentro de la carpeta `files` se encuentran los archivos json que se deben importar a la herramienta Postman. Para empezar a probar debe tener seleccionado el environment `TestNisum`.
+
+A continuación, se explica la manera de probar un caso exitoso y los casos de error.
 
 ### Caso Exitoso
 
-Teniendo el servicio en Ejecución:
+Teniendo el servicio en ejecución:
 
  1. Primero debemos autenticarnos para obtener un JWT.
 
@@ -60,6 +95,8 @@ También agregar el siguiente body (json):
     ]
 }
 ```
+
+**Nota: Para validar la creación del usuario se puede ingresar a la consola de H2. Se debe pegar la url: `http://localhost:8081/h2-console` en el navegador y loguearse con el usuario `sa` y el password `1234`**
 
 ### Casos de Error
 
