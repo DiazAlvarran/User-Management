@@ -5,18 +5,19 @@ Este proyecto es una API RESTful para la creación de usuarios utilizando autori
 
 Se trata de un servicio que expone dos endpoints: `/api/auth` y `/api/user`.
 
-Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, Lombok, OpenApi (Contract First) y Jacoco, 
+Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, Lombok, OpenApi (Contract First), Jacoco y Checkstyle
 
 ## Pre-Requisitos
  1. Java 17
  2. Plugin Lombok (en su IDE Intellij IDEA o STS)
- 3. Maven
+ 3. Plugin Checkstyle (en su IDE Intellij IDEA o STS)
+ 4. Maven
 
 ## Ejecutar servicio API RESTful de manera local
 
  1. Clonar el repositorio de manera local.
 
- 1. Ejecutar un `clean` e `install` con maven, ya se por comandos o desde un IDE. Esto permitirá que se generen las clases del contrato con  OpenApi.
+ 2. Ejecutar un `clean` e `install` con maven, ya se por comandos o desde un IDE. Esto permitirá que se generen las clases del contrato con  OpenApi.
  
  Por comandos sería:
  
@@ -24,7 +25,7 @@ Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, L
 mvn clean install
 ```
 
- 2. Inicializar el servicio, esto varía según el IDE a utilizar. Por comandos de maven sería:
+ 3. Inicializar el servicio, esto varía según el IDE a utilizar. Por comandos de maven sería:
  
 ```
 mvn spring-boot:run

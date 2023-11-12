@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Phone Entity Class
- * 
+ * Phone Entity Class.
+ *
  * @author Jorge Diaz
  * @version 1.0
  */
@@ -30,26 +30,26 @@ import lombok.Setter;
 @Entity
 @Table(name = "phones")
 public class Phone {
-  
-  @Id
-  private String id;
-  
-  @Column(nullable = false)
-  private String number;
-  
-  @Column(name = "city_code", nullable = false)
-  private String cityCode;
-  
-  @Column(name = "country_code", nullable = false)
-  private String countryCode;
-  
-  @Column(nullable = false)
-  @Temporal(TemporalType.DATE)
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private Date created;
-  
-  @Temporal(TemporalType.DATE)
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private Date modified;
+
+    @Id
+    private String id;
+
+    @Column(nullable = false)
+    private String number;
+
+    @Column(name = "city_code", nullable = false)
+    private String cityCode;
+
+    @Column(name = "country_code", nullable = false)
+    private String countryCode;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date created;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date modified;
 
 }
