@@ -5,7 +5,7 @@ Este proyecto es una API RESTful para la creación de usuarios utilizando autori
 
 Se trata de un servicio que expone dos endpoints: `/api/auth` y `/api/user`.
 
-Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, Lombok, OpenApi (Contract First), Jacoco y Checkstyle
+Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, Lombok, OpenApi (Contract First), Jacoco, Checkstyle y Docker.
 
 ## Pre-Requisitos
  1. Java 17
@@ -15,7 +15,7 @@ Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, L
 
 ## Ejecutar servicio API RESTful de manera local
 
- 1. Clonar el repositorio de manera local.
+ 1. Clonar el repositorio de manera local y ubicarse en la carpeta raíz.
 
  2. Ejecutar un `clean` e `install` con maven, ya se por comandos o desde un IDE. Esto permitirá que se generen las clases del contrato con  OpenApi.
  
@@ -31,7 +31,27 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-**Nota: El servicio está configurado para inicializar en el puerto 8081. Para validar que está ejecutándose, se puede pegar la siguiente url en el navegador `http://localhost:8081/swagger-ui/index.html` para que se muestre el contrato de la API RESTful**
+## Ejecutar servicio API RESTful con Docker
+
+ 1. Tener Docker instalado.
+ 
+ 2. Clonar el repositorio de manera local y ubicarse en la carpeta raíz.
+ 
+ 3. Construir la imagen a partir del `Dockerfile`. Ejecutar el comando: 
+
+```
+docker build -t api-users:1.0 .
+```
+
+ 4. Ejecutar el servicio en un contenedor con el comando:
+
+```
+docker run -d --name api-users -p 8081:8081 api-users:1.0
+```
+
+**Nota: El servicio debería inicializar en el puerto 8081. Para validar que está ejecutándose, se puede pegar la siguiente url en el navegador `http://localhost:8081/swagger-ui/index.html` para que se muestre el contrato de la API RESTful**
+
+**Nota: También se puede obtener una imagen desde Docker Hub con el comando `docker pull jorgevda/api-users:1.0`**
 
 ## Ejecución de Pruebas
 
@@ -103,7 +123,6 @@ También agregar el siguiente body (json):
 
  1. **Forbidden**. Cuando se intenta ejecutar `/api/user` sin un token válido.
  2. **Unauthorized**. Cuando se ingresa mal email y/o password en `/api/auth`. También cuando el usuario no está activo. Se tiene cargado un usuario inactivo de ejemplo:
-
 ```
 {
     "email": "luisperez@nike.cl",
